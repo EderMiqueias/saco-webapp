@@ -3,7 +3,7 @@ from app.model.VO.funcionario_cliente_vo import FuncionarioClienteVO
 from app.model.VO.maraca_modelo_vo import MarcaModeloVO
 from app.model.VO.item_servico_vo import ItemServicoVO
 from app.model.VO.espera_vo import EsperaVO
-
+from app.model.VO.funcionario_part_vo import FuncionarioPartVO
 
 class ConsultasDAO(BaseDAO):
     def select_fc(self):  # g-2) Quais são nossos Funcionários que também são clientes?
@@ -83,12 +83,22 @@ class ConsultasDAO(BaseDAO):
         result = self.cursor.fetchall()
         return list(EsperaVO(e[0], e[1], e[2]) for e in result)
 
-    def fucionario_all(self):
-        query_funcionarios = '''
-                SELECT id_funcionario 
-                FROM item_servico
-                GROUP BY id_servico, id_funcionario 
+    def get_mecanicos_part(self):
+        query = '''
+                SELECT 
+                    id_funcionario,
+                    COUNT(id_funcionario) as servicos 
+                FROM item_servico is2
+                GROUP BY id_funcionario
+                HAVING servicos = (	SELECT sum(servicos) 
+                                FROM(
+                                    SELECT COUNT(*) AS servicos
+                                    FROM item_servico
+                                    GROUP BY id_servico
+                                    ) s
+                                )
                 '''
         self.cursor.execute(query)
         result = self.cursor.fetchall()
+        return list(FuncionarioPartVO(f[0], f[1],) for f in result)
 
