@@ -11,3 +11,6 @@ def get_tipo_servico():
         'message': 'success',
         'response': results
     }
+
+print('a')
+
