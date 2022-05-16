@@ -5,5 +5,6 @@ from app.controller.tipo_servico_controller import get_tipo_servico
 from app.controller.funcionario_controller import get_funcionario
 from app.controller.cliente_controller import get_cliente
 from  app.controller.ordem_servico_controller import get_ordem_servico
+from  app.controller.consultas_controller import get_consultas
 
 app.run(debug=True)
