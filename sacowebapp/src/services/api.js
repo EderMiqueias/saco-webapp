@@ -1,7 +1,23 @@
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: "http://127.0.0.1:8000",
-});
+class api {
+  static get(url) {
+      return axios.get(`http://localhost:5000${url}`);
+  }
+
+  static post(url, body) {
+    return axios.post(`http://localhost:5000${url}`, body);
+}
+
+  static getTipoServico() {
+    return api.get('/tipo-servico')
+  }
+
+  static postTipoServico(data) {
+    return api.post('/tipo-servico', data)
+  }
+
+
+}
 
 export default api;

@@ -13,6 +13,7 @@
 
 # misc
 /sacowebapp/.DS_Store
+/sacowebapp/.package-lock.json
 /sacowebapp/.env.local
 /sacowebapp/.env.development.local
 /sacowebapp/.env.test.local

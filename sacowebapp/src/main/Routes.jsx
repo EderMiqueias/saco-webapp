@@ -1,14 +1,14 @@
 import React from 'react';
-import { Redirect } from 'react-router';
-import { Route, HashRouter} from 'react-router-dom';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
-import Polos from '../components/template/Polos';
+import TipoServico from '../pages/TipoServico';
 
 const routes = (props) => (
-    <HashRouter>
-        <Route path='/polos' component={Polos}></Route>
-        <Redirect from="*" to="/polos" />
-    </HashRouter>
+    <BrowserRouter>
+        <Switch>
+            <Route exact path='/tipo-servico' component={TipoServico}></Route>
+        </Switch>
+    </BrowserRouter>
 )
 
 export default routes;
