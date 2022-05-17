@@ -24,3 +24,4 @@ class FuncionarioVO:
             "salario": self.salario,
             "data_admissao": self.data_admissao
         }
+
