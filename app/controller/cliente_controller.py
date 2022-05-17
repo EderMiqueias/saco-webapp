@@ -29,5 +29,5 @@ def post_cliente():
     return {
         'message': 'success',
         'response': j
-    }
+    }, 201
 

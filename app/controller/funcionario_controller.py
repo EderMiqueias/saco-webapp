@@ -30,7 +30,7 @@ def post_funcionario():
     return {
         'message': 'success',
         'response': j
-    }
+    }, 201
 
 
 @app.route("/funcionario", methods=["DELETE"])

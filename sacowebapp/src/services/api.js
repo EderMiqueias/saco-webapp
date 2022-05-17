@@ -17,6 +17,9 @@ class api {
     return api.post('/tipo-servico', data)
   }
 
+  static getConsultas() {
+    return api.get('/consultas')
+  }
 
 }
 
