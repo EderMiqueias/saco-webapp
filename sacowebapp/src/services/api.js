@@ -9,6 +9,10 @@ class api {
     return axios.post(`http://localhost:5000${url}`, body);
   }
 
+  static put(url, body) {
+    return axios.put(`http://localhost:5000${url}`, body);
+  }
+
   static delete(url) {
     return axios.delete(`http://localhost:5000${url}`);
   }
@@ -47,6 +51,18 @@ class api {
 
   static postClientes(data) {
     return api.post('/cliente', data)
+  }
+
+  static getOrdens() {
+    return api.get('/ordem-servico')
+  }
+
+  static postOrdens(data) {
+    return api.post('/ordem-servico', data)
+  }
+
+  static putOrdens(data) {
+    return api.put('/ordem-servico', data)
   }
 
 }

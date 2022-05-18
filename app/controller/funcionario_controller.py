@@ -29,6 +29,7 @@ def get_especialidade():
 def post_funcionario():
     dao = FuncionarioDAO()
     j = request.get_json()
+    print(j['data_admissao'])
 
     dao.insert((j["nome"],
                 j["telefone"],
@@ -36,7 +37,7 @@ def post_funcionario():
                 j["cpf"],
                 j["id_especialidade"],
                 j["salario"],
-                j["data_admissao"].split)
+                j["data_admissao"])
                )
     return {
         'message': 'success',

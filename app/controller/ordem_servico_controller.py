@@ -3,7 +3,7 @@ from flask import request
 from app.model.DAO.ordem_servico_dao import OrdemServicoDAO
 
 
-@app.route("/ordem_servico", methods=["GET"])
+@app.route("/ordem-servico", methods=["GET"])
 def get_ordem_servico():
     dao = OrdemServicoDAO()
     results = list(os.get_json() for os in dao.select_all())
@@ -14,7 +14,7 @@ def get_ordem_servico():
     }
 
 
-@app.route("/ordem_servico", methods=["POST"])
+@app.route("/ordem-servico", methods=["POST"])
 def post_ordem_servico():
     dao = OrdemServicoDAO()
     j = request.get_json()
@@ -25,10 +25,10 @@ def post_ordem_servico():
     return {
         'message': 'success',
         'response': j
-    }
+    }, 201
 
 
-@app.route("/ordem_servico", methods=["PUT"])
+@app.route("/ordem-servico", methods=["PUT"])
 def put_ordem_servico():
     dao = OrdemServicoDAO()
     j = request.get_json()

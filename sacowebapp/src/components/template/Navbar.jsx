@@ -18,6 +18,9 @@ const Navbar = props => {
                 <ul className="navbar-nav mr-auto">
                     <ItemNavbar content="Tipos de Serviço" src="/tipo-servico"/>
                 </ul>
+                <ul className="navbar-nav mr-auto">
+                    <ItemNavbar content="Ordens de Serviço" src="/ordem-servico"/>
+                </ul>
             </div>
         </nav>
     );
