@@ -20,8 +20,8 @@ export default class Funcionarios extends React.Component {
             telefone: '',
             rg: '',
             cpf: '',
-            id_especialidade: 0,
-            salario: 0
+            id_especialidade: 1,
+            salario: 1000
         }
 
         this.refresh();
@@ -165,11 +165,10 @@ export default class Funcionarios extends React.Component {
                             })}
                         />
                         <Select
-                            labelId="demo-simple-select-helper-label"
-                            id="demo-simple-select-helper"
+                            labelId="label_b"
+                            id="id_b"
                             value={this.state.id_especialidade}
                             style={{width: 100}}
-                            label="Age"
                             onChange={(e) => this.setState({
                                 ...this.state,
                                 id_especialidade: e.target.value

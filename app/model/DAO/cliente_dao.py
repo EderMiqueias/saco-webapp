@@ -24,5 +24,16 @@ class ClienteDAO(BaseDAO):
         result = self.cursor.fetchall()
         return list(ClienteVO(c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7]) for c in result)
 
+    def select_tipos(self):
+        query = 'select * from tipo_cliente'
+        self.cursor.execute(query)
+        result = self.cursor.fetchall()
+
+        return list(
+            {
+                'id': tipo[0],
+                'tipo': tipo[1]
+            } for tipo in result)
+
     def commit(self):
         self.conn.commit()

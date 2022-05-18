@@ -14,6 +14,17 @@ def get_cliente():
     }
 
 
+@app.route("/tipo-cliente", methods=["GET"])
+def get_tipos_cliente():
+    dao = ClienteDAO()
+    results = dao.select_tipos()
+
+    return {
+        'message': 'success',
+        'response': results
+    }
+
+
 @app.route("/cliente", methods=["POST"])
 def post_cliente():
     dao = ClienteDAO()

@@ -29,12 +29,24 @@ class api {
     return api.get('/especialidade')
   }
 
+  static getTiposCliente() {
+    return api.get('/tipo-cliente')
+  }
+
   static postFuncionario(data) {
     return api.post('/funcionario', data)
   }
 
   static deleteFuncionario(id) {
     return api.delete(`/funcionario/${id}`)
+  }
+
+  static getClientes() {
+    return api.get('/cliente')
+  }
+
+  static postClientes(data) {
+    return api.post('/cliente', data)
   }
 
 }
