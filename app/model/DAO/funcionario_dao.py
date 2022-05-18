@@ -27,6 +27,17 @@ class FuncionarioDAO(BaseDAO):
         result = self.cursor.fetchall()
         return list(FuncionarioVO(f[0], f[1], f[2], f[3], f[4], f[5], f[6], f[7], f[8]) for f in result)
 
+    def select_especialidade(self):
+        query = 'SELECT * FROM especialidade'
+        self.cursor.execute(query)
+        result = self.cursor.fetchall()
+
+        return list(
+            {
+                'id': esp[0],
+                'descricao': esp[1]
+            } for esp in result)
+
     def select(self, value):
         query = '''
                 SELECT 	f.id,

@@ -14,6 +14,17 @@ def get_funcionario():
     }
 
 
+@app.route("/especialidade", methods=["GET"])
+def get_especialidade():
+    dao = FuncionarioDAO()
+    results = dao.select_especialidade()
+
+    return {
+        'message': 'success',
+        'response': results
+    }
+
+
 @app.route("/funcionario", methods=["POST"])
 def post_funcionario():
     dao = FuncionarioDAO()
@@ -25,7 +36,7 @@ def post_funcionario():
                 j["cpf"],
                 j["id_especialidade"],
                 j["salario"],
-                j["data_adimissao"])
+                j["data_admissao"].split)
                )
     return {
         'message': 'success',
@@ -33,12 +44,11 @@ def post_funcionario():
     }, 201
 
 
-@app.route("/funcionario", methods=["DELETE"])
-def delete_funcionario():
+@app.route("/funcionario/<int:id>", methods=["DELETE"])
+def delete_funcionario(id):
     dao = FuncionarioDAO()
-    j = request.get_json()
-    deletado = list(f.get_json() for f in dao.select(str(j["id"])))
-    dao.delete(str(j["id"]))
+    deletado = list(f.get_json() for f in dao.select(str(id)))
+    dao.delete(str(id))
     return {
         'message': 'success',
         'response': deletado

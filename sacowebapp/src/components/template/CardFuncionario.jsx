@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import api from '../../services/api';
 
 class CardFuncionario extends React.Component {
     constructor(props) {
@@ -11,8 +13,14 @@ class CardFuncionario extends React.Component {
             nome: props.nome,
             rg: props.rg,
             salario: props.salario,
-            telefone: props.telefone
+            telefone: props.telefone,
+            refresh: props.refresh
         }
+        this.deletar = this.deletar.bind(this);
+    }
+
+    deletar() {
+        api.deleteFuncionario(this.state.id)
     }
 
 
@@ -34,6 +42,11 @@ class CardFuncionario extends React.Component {
                         <li>TELEFONE: {this.state.telefone}</li>
                     </ul>
                 </div>
+                {this.props.shouldDelete && (
+                    <Button color="primary" onClick={this.deletar}>
+                        Deletar
+                    </Button>
+                )}
             </div>
         );
     }
