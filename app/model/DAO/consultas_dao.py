@@ -4,6 +4,8 @@ from app.model.VO.maraca_modelo_vo import MarcaModeloVO
 from app.model.VO.item_servico_vo import ItemServicoVO
 from app.model.VO.espera_vo import EsperaVO
 from app.model.VO.funcionario_part_vo import FuncionarioPartVO
+from app.model.VO.faturamento_vo import FaturamentoVO
+from app.model.VO.distancia_vo import DistanciaVO
 
 class ConsultasDAO(BaseDAO):
     def select_fc(self):  # g-2) Quais são nossos Funcionários que também são clientes?
@@ -101,4 +103,49 @@ class ConsultasDAO(BaseDAO):
         self.cursor.execute(query)
         result = self.cursor.fetchall()
         return list(FuncionarioPartVO(f[0], f[1],) for f in result)
+
+    def get_faturamento(self, value):
+        query = '''
+                        SELECT 	nf.id_oficina,
+                                o.identificacao,
+                                SUM((p.avista + p.trinta_dias + p.noventa_dias)) as faturamento_bruto
+                        FROM saco.nota_fiscal nf
+                        INNER JOIN 
+                            saco.oficina o ON nf.id_oficina = o.id 
+                        INNER JOIN 
+                            saco.pagamento p ON nf.id_pagamento = p.id
+                        INNER JOIN 
+                            saco.item_ficha_cliente ifc ON nf.id = ifc.id_nf 
+                        INNER JOIN 
+                            saco.ordem_servico os ON ifc.id_os = os.id
+                        WHERE 
+                            MONTH(os.saida) = %s #mes
+                        GROUP BY 
+                            nf.id_oficina, 
+                            o.identificacao
+                        ORDER BY 
+                            faturamento_bruto DESC 
+                        ''' %value
+        self.cursor.execute(query)
+        result = self.cursor.fetchall()
+        return list(FaturamentoVO(i[0], i[1], i[2]) for i in result)
+
+    def get_menor_distancia(self, values):
+        query = '''
+                        SELECT 
+                            o.identificacao,
+                            (SELECT 
+                                FORMAT(
+                                    (ST_Distance_Sphere(
+                                        point(%s, %s),
+                                        point(o.latitude, o.longitude)
+                                        ) / 1000), 5)) as distancia
+                        FROM oficina o
+                        ORDER BY distancia 
+                        LIMIT 1
+                        '''
+        self.cursor.execute(query, values)
+        result = self.cursor.fetchall()
+        return list(DistanciaVO(i[0], i[1]) for i in result)
+
 

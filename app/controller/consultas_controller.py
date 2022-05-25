@@ -46,14 +46,36 @@ def get_consultas():
     }
 
 
-@app.route("/consultas", methods=["POST"])
+@app.route("/consultas/<int:id>", methods=["GET"])
+def get_item_servico(id):
+    dao = ConsultasDAO()
+    # g-5) Quais são os itens de serviço dado um determinado serviço?
+    result_5 = list(i.get_json() for i in dao.get_item_servico(str(id)))
+    return {
+        'message': 'success',
+        'response': result_5
+    }
+
+
+@app.route("/consultas/faturamento/<int:mes>", methods=["GET"])
+def get_faturamento(mes):
+    dao = ConsultasDAO()
+    # a) oficinas que mais faturaram dado um mes X
+    result_a = list(i.get_json() for i in dao.get_faturamento(str(mes)))
+    return {
+        'message': 'success',
+        'response': result_a
+    }
+
+
+@app.route("/consultas/distancia", methods=["POST"])
 def post_consultas():
     dao = ConsultasDAO()
     j = request.get_json()
 
-    # g-5) Quais são os itens de serviço dado um determinado serviço?
-    result_5 = list(i.get_json() for i in dao.get_item_servico(str(j["id"])))
+    # b) Qual a oficina mais proxima dado a latitude e longitude
+    result_b = list(i.get_json() for i in dao.get_menor_distancia((j['latitude'], j['longitude'])))
     return {
         'message': 'success',
-        'response': result_5
+        'response': result_b
     }
